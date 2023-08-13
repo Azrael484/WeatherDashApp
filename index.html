@@ -20,10 +20,10 @@
     <nav class= "mb-3 py-2 bg-dark">
         <ul class="nav justify-content-center">
             <li class="nav-item">
-                <a class="nav-link text-light" href="#city-search">Search a U.S. city</a>
+                <a class="nav-link text-light" href="" disabled>Search a U.S. city</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-light" href="#search-history">Look up in your search history</a>
+                <a id = "show-history" class="nav-link text-light" href="#search-history">Look up in your search history</a>
             </li>
         </ul>
     </nav>
@@ -46,22 +46,19 @@
                     </button>
 
             </div>
-            <div class="col-12 col-md-6" id = "recent-history" >
-                <h5 class="text-bold bg-info py-3" id = "recent-searches">Recent Searches</h5>
-                <ul class ="col mx-auto">
-                    <li class = "my-3"><button class="btn btn-info btn-large">London</button></li>
-                    <li class = "my-3"><button class="btn btn-info btn-large">New York</button></li>
-                    <li class = "my-3"><button class="btn btn-info btn-large">Tokyo</button></li>
-                    <li class = "my-3"><button class="btn btn-info btn-large">Cambridge</button></li>
-                    <li class = "my-3"><button class="btn btn-info btn-large">Paris</button></li>
+            <div class="col-12 col-md-6" id = "recent-history" style = "visibility:hidden;">
+                <h5 class="text-bold bg-info py-3" >Recently Searched Cities</h5>
+                <ul class ="row mx-auto">
+                    <button id='close-history'>Press to Close</button>
+                    <button id="delete-history">Press to Delete</button>
                 </ul>
             </div>
     <div class="col-12 col-md-6 ">
                 <h1>Last City Searched</h1>
                 <div class="card">
-                    <h2 class="card-header">New York <img id = "current-icon" src=""/></h2>
+                    <h2 class="card-header"><img id = "current-icon" src=""/></h2>
                     <div class="card-body">
-                        <h5 id ="current-day" class="card-title">Today is 2023-08-09</h5>
+                        <h5 id ="current-day" class="card-title"></h5>
                           <ul class ="list-group col col-md-3">
                             <li class = "list-group-item text-bold">Temperature: <span id="current-temp"></span></li>
                             <li class = "list-group-item text-bold">Wind: <span id="current-wind"></span></li>
@@ -70,21 +67,21 @@
                     </div>
                 </div>
             </div>
-            <div class = "row justify-content-around">
+            <div id="forecasts" class = "row justify-content-around" style ="visibility:hidden;">
             <h5 class = "mt-5">Forecasts For the Next 5 Days:</h5>
-            <div class="card col-12 col-md-3 col-lg-2 my-3">
+            <div class="card col-12 col-md-3 col-lg-2 my-3" >
                 <div class="card-body">
-                    <h5 id = "day-0" class="card-title">2023-08-10<img id = "icon-0"/></h5>
+                    <h5 id = "day-0" class="card-title"><img id = "icon-0"/></h5>
                       <ul class ="list-group col mx-auto">
-                        <li class = "list-group-item">Temperature: <span id="temp-0">78</span></li>
-                        <li class = "list-group-item">Wind: <span id="wind-0">45mph</span></li>
-                        <li class = "list-group-item">Humidity: <span id="humidity-0">60%</span></li>
+                        <li class = "list-group-item">Temperature: <span id="temp-0"></span></li>
+                        <li class = "list-group-item">Wind: <span id="wind-0"></span></li>
+                        <li class = "list-group-item">Humidity: <span id="humidity-0"></span></li>
                     </ul>
                 </div>
             </div>
-            <div class="card col-12 col-md-3 col-lg-2 my-3">
+            <div class="card col-12 col-md-3 col-lg-2 my-3" >
                 <div  class="card-body">
-                    <h5 id = "day-1" class="card-title">2023-08-11<img id = "icon-1"/></h5>
+                    <h5 id = "day-1" class="card-title"><img id = "icon-1"/></h5>
                       <ul class ="list-group col mx-auto">
                         <li class = "list-group-item">Temperature: <span id="temp-1"></span></li>
                         <li class = "list-group-item">Wind: <span id="wind-1"></span></li>
@@ -92,9 +89,9 @@
                     </ul>
                 </div>
             </div>
-            <div class="card col-12 col-md-3 col-lg-2 my-3">
+            <div class="card col-12 col-md-3 col-lg-2 my-3" >
                 <div class="card-body">
-                    <h5 id = "day-2" class="card-title">2023-08-12<img id = "icon-2"/>></h5>
+                    <h5 id = "day-2" class="card-title"><img id = "icon-2"/>></h5>
                       <ul class ="list-group col mx-auto">
                         <li class = "list-group-item">Temperature: <span id="temp-2"></span></li>
                         <li class = "list-group-item">Wind: <span id="wind-2"></span></li>
@@ -102,9 +99,9 @@
                     </ul>
                 </div>
             </div>
-            <div  class="card col-12 col-md-3 col-lg-2 my-3">
-                <div id = "day-3" class="card-body">
-                    <h5 class="card-title">2023-08-13<img id = "icon-3"/></h5>
+            <div  class="card col-12 col-md-3 col-lg-2 my-3" >
+                <div  class="card-body">
+                    <h5 id = "day-3" class="card-title"><img id = "icon-3"/></h5>
                       <ul class ="list-group col mx-auto">
                         <li class = "list-group-item">Temperature: <span id="temp-3"></span></li>
                         <li class = "list-group-item">Wind: <span id="wind-3"></span></li>
@@ -112,9 +109,9 @@
                     </ul>
                 </div>
             </div>            
-            <div  class="card col-12 col-md-3 col-lg-2 my-3">
-                <div id = "day-4" class="card-body">
-                    <h5 class="card-title">2023-08-14<img id = "icon-4"/></h5>
+            <div  class="card col-12 col-md-3 col-lg-2 my-3" >
+                <div  class="card-body">
+                    <h5 id = "day-4" class="card-title"><img id = "icon-4"/></h5>
                     <ul class ="list-group col mx-auto">
                         <li class = "list-group-item">Temperature: <span id="temp-4"></span></li>
                         <li class = "list-group-item">Wind: <span id="wind-4"></span></li>
