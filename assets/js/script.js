@@ -18,7 +18,6 @@ for(let i=0; i<5; i++){
     //Getting the HTML elements where the info will be displayed for each of the 5 small cards with the forecast info
 
     var Day = document.getElementById("day-"+i);
-    console.log(Day);
     var Temp =document.getElementById("temp-"+i);
     var Humid = document.getElementById("humidity-"+i);
     var Wind = document.getElementById("wind-"+i);
@@ -85,10 +84,11 @@ cityInputBtn.addEventListener('click', ()=>{
      cityInput = cityInputEl.value;
     console.log("hello");
     console.log(cityInput);
-    if(stateInput=== undefined || cityInput=== undefined){
+    if(!stateInput|| !cityInput){
         alert("Remember that both inputs are required.");
     }else{
         findCityCoordinates(cityInput, stateInput);
+        showHistoryEl.addEventListener('click', showSearchedCities);
     };
 
 })
@@ -98,14 +98,15 @@ stateInputBtn.addEventListener('click', ()=>{
     for(let i=0; i<53;i++){
         if(state === stateNamesArray[i].toUpperCase()){
             stateInput = statesArray[i];
-        }
+        };
     };
     console.log("Hello");
     console.log(stateInput);
-    if(cityInput=== undefined || stateInput=== undefined){
+    if(!cityInput|| !stateInput){
         alert("Remember that both inputs are required.");
     }else{
         findCityCoordinates(cityInput, stateInput);
+        showHistoryEl.addEventListener('click', showSearchedCities);
     };
     
 });
@@ -117,17 +118,33 @@ var cityIsInState;
 var cityCoord = new Array(2);
 
 //Retrieving info the cities that have been searched from localStorage
-var searchedCities = JSON.parse(localStorage.getItem("searchedCities"));
+console.log(localStorage);
 
+if(localStorage.length === 0){
+
+    var searchedCities = [];
+}else{
+var searchedCities = JSON.parse(localStorage.getItem("searchedCities"));
+}
+var lastCitySearched;
+
+console.log(searchedCities);
 //Displaying the weather info of the last city searched in case there is something in localStorage
-if(searchedCities){
-var lastCitySearched = searchedCities[searchedCities.length - 1];
-    console.log(lastCitySearched);
-    findCurrentWeather(lastCitySearched.lat, lastCitySearched.lon);
+function init(){
+
+if(searchedCities.length === 0){
+    lastCitySearchEl.textContent = "Please enter a city and a state in the provided input fields.";
+    currentDateEl.textContent = new Date();
     } else{
-        lastCitySearchEl.textContent = "Please enter a city and a state in the provided input fields.";
-        currentDateEl.textContent = new Date();
-    }
+        
+        lastCitySearched = searchedCities[searchedCities.length - 1];
+        console.log(lastCitySearched);
+        findCurrentWeather(lastCitySearched.lat, lastCitySearched.lon);
+    
+    };
+}
+
+init();
 
 //Makes a fetch request to GeoCode API to find the latitude and longitude odf the city
 function findCityCoordinates(city,state) {
@@ -172,7 +189,10 @@ if (!response.ok){
 
     };
         console.log(currentCity);
+
+        if(currentCity!==undefined){
         searchedCities.push(currentCity);
+        }
 
     localStorage.setItem("searchedCities", JSON.stringify(searchedCities));
     console.log(localStorage);
@@ -199,6 +219,8 @@ function findCurrentWeather(lat,lon){
                 return response.json();
     
             }).then(function(data){
+
+                 console.log(data);
                 if(!data){
                     return;
                 }
@@ -264,22 +286,29 @@ function showSearchedCities(){
 
     searchedCities = JSON.parse(localStorage.getItem("searchedCities"));//retrieve info from localStorage.
     console.log(searchedCities);
-    if(searchedCities){
+    if(searchedCities.lenght !== 0)
+    {   if(recentHistEl.children[1].children.length > 2){
+        for(let i=2; i<recentHistEl.children[1].children.length; i++)
+        recentHistEl.children[1].children[k] = "";
+        }
         for (let k=0; k < searchedCities.length; k++){
             var btn = document.createElement("button");
             btn.className= "btn btn-info btn-large";
-            btn.textContent = searchedCities[k].name.toUpperCase() + ", "+ searchedCities[k].state;
+            btn.textContent = searchedCities[k].name + ", "+ searchedCities[k].state;
             recentHistEl.style.visibility = "visible";
             recentHistEl.children[1].appendChild(btn);
 
         };
 
-        showHistoryEl.removeEventListener('click', showSearchedCities);
+       // showHistoryEl.removeEventListener('click', showSearchedCities);
 
     }
 }
 //Using event delegation, once the user clicks a button on the recent history search list, another search is triggered
 recentHistEl.children[1].addEventListener('click', function (event){
+
+    event.preventDefault();
+
     var element = event.target;
     var btnText = element.innerHTML;
     var cityStateArr = btnText.split(",");
@@ -296,12 +325,16 @@ var closeList = document.getElementById("close-history");
 var deleteList = document.getElementById("delete-history");
 
 //Adding the event handlers for functionality
-closeList.addEventListener("click", function (){
+closeList.addEventListener("click", function (event){
+    event.preventDefault();
     recentHistEl.setAttribute("style","visibility:hidden;");
+    window.alert = function(){};
 });
 
-deleteList.addEventListener("click", function (){
+deleteList.addEventListener("click", function (event){
+    event.preventDefault();
     recentHistEl.children[1].innerHTML ="";
     localStorage.clear();
+    window.alert = function(){};
 });
 
