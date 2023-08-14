@@ -227,9 +227,9 @@ function findCurrentWeather(lat,lon){
                 //Updating the info on the card corresponding to the last city searched
             
                 var currentIconUrl = "https://openweathermap.org/img/w/" + data.weather[0].icon + ".png";
-                currentIcon.setAttribute("src", currentIconUrl);
+                currentIcon.setAttribute("src", "./assets/images/10n.png");
 
-                currentDateEl.textContent = dayjs(dayjs.unix(data.dt)).format('dddd, MMM D, YYYY'); // ToDo: Take the hour out
+                currentDateEl.textContent = dayjs(dayjs.unix(data.dt)).format('dddd, MMM D, YYYY'); 
                 cityTemp.textContent = data.main.temp + ' °F';
                 cityWind.textContent = data.wind.speed + ' mph';
                 cityHumidity.textContent = data.main.humidity + '%';
