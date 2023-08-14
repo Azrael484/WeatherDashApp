@@ -32,7 +32,7 @@ The forecast for the next five days can read in the small cards at the bottom of
 ## Authorship
 
 This Web App is of the authorship of Jonathan Maldonado Guemarez. The public repo can be found at :
-https://github.com/jguemarez/WebDevQuiz
+https://github.com/jguemarez/WeatherDashApp
 
 The Normalize.css (used to do a CSS reset) was downloaded from: https://necolas.github.io/normalize.css/
 
