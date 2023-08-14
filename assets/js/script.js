@@ -2,6 +2,7 @@
 var lastCitySearchEl = document.querySelector(".card-header");
 var currentDateEl = document.getElementById("current-day");
 var currentIcon = document.querySelector("#current-icon");
+console.log(currentIcon);
 var cityTemp = document.querySelector("#current-temp");
 var cityWind = document.querySelector("#current-wind");
 var cityHumidity = document.querySelector("#current-humidity");
@@ -224,7 +225,7 @@ function findCurrentWeather(lat,lon){
                 }
 
                 //Updating the info on the card corresponding to the last city searched
-
+            
                 var currentIconUrl = "https://openweathermap.org/img/w/" + data.weather[0].icon + ".png";
                 currentIcon.setAttribute("src", currentIconUrl);
 
@@ -262,7 +263,7 @@ var fiveDayForecastUrl = "https://api.openweathermap.org/data/2.5/forecast?lat="
             
             for (let i=0; i<5; i++){
 
-                var weatherForecast = data.list[2 + i*8]; //We choose to display the forecast for the weather conditions at 0:00 AM of every day
+                var weatherForecast = data.list[i*8]; //We choose to display the forecast for the weather conditions at 0:00 AM (midnight)of every day
 
                 futureDaysWeather[i].day.textContent = dayjs(weatherForecast.dt_txt).format('dddd, MMM D, YYYY');
                 futureDaysWeather[i].temp.textContent= weatherForecast.main.temp + " °F";
