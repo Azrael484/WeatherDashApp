@@ -88,7 +88,6 @@ cityInputBtn.addEventListener('click', ()=>{
         alert("Remember that both inputs are required.");
     }else{
         findCityCoordinates(cityInput, stateInput);
-        showHistoryEl.addEventListener('click', showSearchedCities);
     };
 
 })
@@ -106,7 +105,6 @@ stateInputBtn.addEventListener('click', ()=>{
         alert("Remember that both inputs are required.");
     }else{
         findCityCoordinates(cityInput, stateInput);
-        showHistoryEl.addEventListener('click', showSearchedCities);
     };
     
 });
@@ -190,7 +188,7 @@ if (!response.ok){
     };
         console.log(currentCity);
 
-        if(currentCity!==undefined){
+        if(currentCity !== undefined){
         searchedCities.push(currentCity);
         }
 
@@ -230,7 +228,7 @@ function findCurrentWeather(lat,lon){
                 var currentIconUrl = "https://openweathermap.org/img/w/" + data.weather[0].icon + ".png";
                 currentIcon.setAttribute("src", currentIconUrl);
 
-                currentDateEl.textContent = dayjs.unix(data.dt); // ToDo: Take the hour out
+                currentDateEl.textContent = dayjs(dayjs.unix(data.dt)).format('dddd, MMM D, YYYY'); // ToDo: Take the hour out
                 cityTemp.textContent = data.main.temp + ' °F';
                 cityWind.textContent = data.wind.speed + ' mph';
                 cityHumidity.textContent = data.main.humidity + '%';
@@ -266,7 +264,7 @@ var fiveDayForecastUrl = "https://api.openweathermap.org/data/2.5/forecast?lat="
 
                 var weatherForecast = data.list[2 + i*8]; //We choose to display the forecast for the weather conditions at 0:00 AM of every day
 
-                futureDaysWeather[i].day.textContent = weatherForecast.dt_txt;
+                futureDaysWeather[i].day.textContent = dayjs(weatherForecast.dt_txt).format('dddd, MMM D, YYYY');
                 futureDaysWeather[i].temp.textContent= weatherForecast.main.temp + " °F";
                 futureDaysWeather[i].wind.textContent= weatherForecast.wind.speed + " mph";
                 futureDaysWeather[i].humid.textContent= weatherForecast.main.humidity + "%";  
@@ -285,11 +283,14 @@ showHistoryEl.addEventListener('click', showSearchedCities);
 function showSearchedCities(){
 
     searchedCities = JSON.parse(localStorage.getItem("searchedCities"));//retrieve info from localStorage.
+
     console.log(searchedCities);
-    if(searchedCities.lenght !== 0)
+
+    if(searchedCities !== null){
+
     {   if(recentHistEl.children[1].children.length > 2){
         for(let i=2; i<recentHistEl.children[1].children.length; i++)
-        recentHistEl.children[1].children[k] = "";
+        recentHistEl.children[1].removeChild(recentHistEl.children[1].children[i]);
         }
         for (let k=0; k < searchedCities.length; k++){
             var btn = document.createElement("button");
@@ -299,8 +300,7 @@ function showSearchedCities(){
             recentHistEl.children[1].appendChild(btn);
 
         };
-
-       // showHistoryEl.removeEventListener('click', showSearchedCities);
+    }
 
     }
 }
