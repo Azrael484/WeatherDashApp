@@ -6,6 +6,7 @@ console.log(currentIcon);
 var cityTemp = document.querySelector("#current-temp");
 var cityWind = document.querySelector("#current-wind");
 var cityHumidity = document.querySelector("#current-humidity");
+var cityDesc = document.querySelector("#current-description");
 // Grabbing elements pertaining to the user's search history
 var showHistoryEl = document.getElementById("show-history");
 var recentHistEl = document.querySelector("#recent-history");
@@ -24,6 +25,7 @@ for (let i = 0; i < 5; i++) {
     var Humid = document.getElementById("humidity-" + i);
     var Wind = document.getElementById("wind-" + i);
     var Icon = document.getElementById("icon-" + i);
+    var Desc = document.getElementById("description-"+ i);
 
     //Storing the references to the display elements in an object
 
@@ -32,7 +34,8 @@ for (let i = 0; i < 5; i++) {
         temp: Temp,
         humid: Humid,
         wind: Wind,
-        icon: Icon
+        icon: Icon,
+        description: Desc
     }
     futureDaysWeather.push(forecastedWeather); //Storing each of the forecast objects into an array
 
@@ -116,15 +119,9 @@ var cityIsInState;
 //Array to store the coordinates found with GeoCoding API
 var cityCoord = new Array(2);
 
-//Retrieving info the cities that have been searched from localStorage
-console.log(localStorage);
-
-if (localStorage.length === 0) {
-
-    var searchedCities = [];
-} else {
-    var searchedCities = JSON.parse(localStorage.getItem("searchedCities")) || [];
-}
+//Array to retrieve and store from client-side storage
+var searchedCities = JSON.parse(localStorage.getItem("searchedCities")) || [];
+//Var stores the last city that was searched
 var lastCitySearched;
 
 
@@ -221,11 +218,11 @@ function findCurrentWeather(lat, lon) {
             return response.json();
 
         }).then(function (data) {
-
-            console.log(data);
             if (!data) {
                 return;
             }
+
+            console.log(data);
 
             //Updating the info on the card corresponding to the last city searched
 
@@ -236,6 +233,7 @@ function findCurrentWeather(lat, lon) {
             cityTemp.textContent = data.main.temp + ' °F';
             cityWind.textContent = data.wind.speed + ' mph';
             cityHumidity.textContent = data.main.humidity + '%';
+            cityDesc.textContent = data.weather[0].main;
             lastCitySearchEl.textContent = data.name;
 
         }).catch(function (err) {
@@ -275,6 +273,7 @@ function findNextFiveForecasts(lat, lon) {
                 futureDaysWeather[i].wind.textContent = weatherForecast.wind.speed + " mph";
                 futureDaysWeather[i].humid.textContent = weatherForecast.main.humidity + "%";
                 futureDaysWeather[i].icon.src = "https://openweathermap.org/img/w/" + weatherForecast.weather[0].icon + ".png";
+                futureDaysWeather[i].description.textContent =  weatherForecast.weather[0].main;
 
             };
         }).catch(function (err) {
