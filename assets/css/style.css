@@ -4,7 +4,6 @@
 
 .header{
 
-   
     font-size: xxx-large;
     color: aqua;
 }
@@ -21,6 +20,11 @@
     font-size: large;
     color:aquamarine;
     text-align: right;
+}
+
+span{
+
+    font-weight: bold;
 }
 
 button{
