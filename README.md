@@ -9,15 +9,15 @@ The following screenshots where taken from a rendering of the page using Google 
 
 When the page loads, the user will be displayed two text input fields, one for the city name and the other for the state or territory it lies in, as well as a min card titles "Last City Searched"
 
-![This is how the page looks when no search has been enacted yet.](assets/images/weatherApp-1.png)
+![This is how the page looks when no search has been enacted yet.](assets/images/WeatherApp-0.png)
 
 On the other hand, if the user had already visited the page, then the name of the last city he/she searched for will be displayed, even if the user refreshes the page.
 
-![This is how the page looks after at least one search has been made.](assets/images/weatherApp-2.png)
+![This is how the page looks after at least one search has been made.](assets/images/weatherApp-1.png)
 
 An alert reminds the user that both input fields need to be filled in:
 
-![Alert reminding the user how to properly make a request.](assets/images/weatherApp-3.png)
+![Alert reminding the user how to properly make a request.](assets/images/WeatherApp-2.png)
 
 Thanks to local storage, the user can inquire the search history by pressing the link in the nav bar. Clicking on a button with a city and territory name on it will result in a new search, providing info about the current weather and forecasts for the days that follow.In addition, the user can decide whether to close the search history or even delete it.
 
@@ -25,7 +25,7 @@ Thanks to local storage, the user can inquire the search history by pressing the
 
 The forecast for the next five days can read in the small cards at the bottom of the page.
 
-![The five smaller call pop-up whenever the user searches for a city.](assets/images/weatherApp-5.png)
+![The five smaller call pop-up whenever the user searches for a city.](assets/images/WeatherApp-5.png)
 
 
 
