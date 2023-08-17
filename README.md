@@ -21,11 +21,11 @@ An alert reminds the user that both input fields need to be filled in:
 
 Thanks to local storage, the user can inquire the search history by pressing the link in the nav bar. Clicking on a button with a city and territory name on it will result in a new search, providing info about the current weather and forecasts for the days that follow.In addition, the user can decide whether to close the search history or even delete it.
 
-![Image displays the opened search history menu.](assets/images/weatherApp-4.png)
+![Image displays the opened search history menu.](assets/images/weatherApp-3.png)
 
 The forecast for the next five days can read in the small cards at the bottom of the page.
 
-![The five smaller call pop-up whenever the user searches for a city.](assets/images/WeatherApp-5.png)
+![The five smaller call pop-up whenever the user searches for a city.](assets/images/weatherApp-4.png)
 
 
 
